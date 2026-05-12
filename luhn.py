@@ -4,17 +4,19 @@ from __future__ import annotations
 
 from typing import Union
 
-
 NumberLike = Union[str, int]
+REMOVE_CHARS = " -./\\,"
+DIGIT_CLEANUP_TABLE = str.maketrans("", "", REMOVE_CHARS)
 
 
 def _digits(value: NumberLike) -> str:
-    """Return only digits, allowing spaces and hyphens as separators."""
-    text = str(value).strip()
-    cleaned = text.replace(" ", "").replace("-", "")
+    """Return only digits, allowing spaces, hyphens, dots, slashes, backslashes, and commas as separators."""
+    cleaned = str(value).strip().translate(DIGIT_CLEANUP_TABLE)
 
     if not cleaned or not cleaned.isdigit():
-        raise ValueError("value must contain digits only, with optional spaces or hyphens")
+        raise ValueError(
+            "value must contain digits only, with optional spaces or hyphens"
+        )
 
     return cleaned
 
@@ -72,7 +74,9 @@ def append_check_digit(payload: NumberLike) -> str:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Validate a number with the Luhn algorithm.")
+    parser = argparse.ArgumentParser(
+        description="Validate a number with the Luhn algorithm."
+    )
     parser.add_argument("number", help="number to validate")
     args = parser.parse_args()
 
