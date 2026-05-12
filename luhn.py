@@ -22,53 +22,64 @@ def _digits(value: NumberLike) -> str:
 
 
 def checksum(value: NumberLike) -> int:
-    """Return the Luhn checksum for a complete number."""
+    """Return the Luhn validation checksum for a complete number."""
     digits = _digits(value)
+
     total = 0
-    double = False
+    should_double = False
 
     for digit in reversed(digits):
         number = int(digit)
-        if double:
+
+        if should_double:
             number *= 2
+
             if number > 9:
                 number -= 9
+
         total += number
-        double = not double
+        should_double = not should_double
 
     return total % 10
 
 
 def is_valid(value: NumberLike) -> bool:
-    """Return True when value satisfies the Luhn algorithm."""
+    """Return whether the value satisfies the Luhn algorithm."""
+
     try:
-        return checksum(value) == 0
+        is_valid_checksum = checksum(value) == 0
     except ValueError:
         return False
 
+    return is_valid_checksum
+
 
 def calculate_check_digit(payload: NumberLike) -> int:
-    """Calculate the digit that should be appended to payload."""
+    """Return the Luhn check digit to append to the payload."""
+
     digits = _digits(payload)
     total = 0
-    double = True
+    should_double = True
 
     for digit in reversed(digits):
         number = int(digit)
-        if double:
+
+        if should_double:
             number *= 2
+
             if number > 9:
                 number -= 9
-        total += number
-        double = not double
 
-    return (10 - (total % 10)) % 10
+        total += number
+        should_double = not should_double
+
+    return (10 - total % 10) % 10
 
 
 def append_check_digit(payload: NumberLike) -> str:
-    """Return payload with a valid Luhn check digit appended."""
-    digits = _digits(payload)
-    return f"{digits}{calculate_check_digit(digits)}"
+    """Return the payload with a valid Luhn check digit appended."""
+    payload = _digits(payload)
+    return f"{payload}{calculate_check_digit(payload)}"
 
 
 if __name__ == "__main__":
