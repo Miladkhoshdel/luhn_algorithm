@@ -30,6 +30,17 @@ class LuhnTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             calculate_check_digit("123x")
 
+    def test_rejects_unsupported_types(self):
+        unsupported_values = (7992739871.3, 0.0, True, None)
+
+        for value in unsupported_values:
+            with self.subTest(value=value):
+                self.assertFalse(is_valid(value))
+
+                for function in (checksum, calculate_check_digit, append_check_digit):
+                    with self.assertRaises(ValueError):
+                        function(value)
+
 
 if __name__ == "__main__":
     unittest.main()
