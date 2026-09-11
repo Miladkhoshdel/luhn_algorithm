@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
-
-NumberLike = Union[str, int]
+NumberLike = str | int
 REMOVE_CHARS = " -./\\,"
 DIGIT_CLEANUP_TABLE = str.maketrans("", "", REMOVE_CHARS)
 
@@ -12,7 +10,7 @@ DIGIT_CLEANUP_TABLE = str.maketrans("", "", REMOVE_CHARS)
 def _digits(value: NumberLike) -> str:
     """Return only digits, allowing spaces, hyphens, dots, slashes, backslashes, and commas as separators."""
     if isinstance(value, bool) or not isinstance(value, (str, int)):
-        raise ValueError("value must be a string or non-boolean integer")
+        raise TypeError("value must be a string or non-boolean integer")
 
     cleaned = str(value).strip().translate(DIGIT_CLEANUP_TABLE)
 
