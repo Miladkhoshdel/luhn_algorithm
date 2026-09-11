@@ -49,7 +49,7 @@ def is_valid(value: NumberLike) -> bool:
 
     try:
         is_valid_checksum = checksum(value) == 0
-    except ValueError:
+    except (TypeError, ValueError):
         return False
 
     return is_valid_checksum

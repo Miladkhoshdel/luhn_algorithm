@@ -21,7 +21,7 @@ lengths, or whether an identifier is real.
 
 ## Requirements
 
-- Python 3.8+
+- Python 3.10+
 - No third-party packages
 
 ## Quick Start
@@ -95,8 +95,9 @@ space  -  .  /  \  ,
 
 After normalization, the value must contain at least one digit and no other
 characters. `checksum`, `calculate_check_digit`, and `append_check_digit` raise
-`ValueError` for invalid input. `is_valid` catches that error and returns
-`False`, which makes it convenient for validation checks.
+`ValueError` for malformed strings and `TypeError` for unsupported input types.
+`is_valid` catches both errors and returns `False`, which makes it convenient
+for validation checks.
 
 ## Examples
 
