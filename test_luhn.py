@@ -38,7 +38,7 @@ class LuhnTests(unittest.TestCase):
                 self.assertFalse(is_valid(value))
 
                 for function in (checksum, calculate_check_digit, append_check_digit):
-                    with self.assertRaises(ValueError):
+                    with self.assertRaises(TypeError):
                         function(value)
 
 
