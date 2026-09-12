@@ -16,7 +16,8 @@ def _digits(value: NumberLike) -> str:
 
     if not cleaned or not cleaned.isdigit():
         raise ValueError(
-            "value must contain digits only, with optional spaces or hyphens"
+            "value must contain digits only, with optional spaces, hyphens, "
+            "dots, slashes, backslashes, or commas"
         )
 
     return cleaned
