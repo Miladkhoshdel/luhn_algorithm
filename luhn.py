@@ -87,6 +87,7 @@ def append_check_digit(payload: NumberLike) -> str:
 
 if __name__ == "__main__":
     import argparse
+    import sys
 
     parser = argparse.ArgumentParser(
         description="Validate a number with the Luhn algorithm."
@@ -94,4 +95,6 @@ if __name__ == "__main__":
     parser.add_argument("number", help="number to validate")
     args = parser.parse_args()
 
-    print("valid" if is_valid(args.number) else "invalid")
+    valid = is_valid(args.number)
+    print("valid" if valid else "invalid")
+    sys.exit(0 if valid else 1)
