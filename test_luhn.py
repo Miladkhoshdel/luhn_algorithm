@@ -30,7 +30,12 @@ class LuhnTests(unittest.TestCase):
         self.assertEqual(append_check_digit("7992739871"), "79927398713")
 
     def test_rejects_non_digit_payloads(self):
-        with self.assertRaises(ValueError):
+        expected_message = (
+            "value must contain digits only, with optional spaces, hyphens, "
+            "dots, slashes, backslashes, or commas"
+        )
+
+        with self.assertRaisesRegex(ValueError, expected_message):
             calculate_check_digit("123x")
 
     def test_rejects_unsupported_types(self):
