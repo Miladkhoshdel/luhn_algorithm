@@ -44,6 +44,9 @@ Invalid numbers print:
 invalid
 ```
 
+The command exits with status `0` for a valid number and status `1` for an
+invalid number, so it can be used directly in shell scripts and CI checks.
+
 Run the test suite:
 
 ```bash

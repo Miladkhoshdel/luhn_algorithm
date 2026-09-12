@@ -1,4 +1,7 @@
+import subprocess
+import sys
 import unittest
+from pathlib import Path
 
 from luhn import append_check_digit, calculate_check_digit, checksum, is_valid
 
@@ -40,6 +43,24 @@ class LuhnTests(unittest.TestCase):
                 for function in (checksum, calculate_check_digit, append_check_digit):
                     with self.assertRaises(TypeError):
                         function(value)
+
+    def test_cli_exit_status_reflects_validity(self):
+        script = Path(__file__).with_name("luhn.py")
+
+        for number, expected_output, expected_status in (
+            ("79927398713", "valid", 0),
+            ("79927398714", "invalid", 1),
+        ):
+            with self.subTest(number=number):
+                result = subprocess.run(
+                    [sys.executable, str(script), number],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+
+                self.assertEqual(result.stdout.strip(), expected_output)
+                self.assertEqual(result.returncode, expected_status)
 
 
 if __name__ == "__main__":
