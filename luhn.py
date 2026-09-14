@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-NumberLike = str | int
+from typing import Union
+
+NumberLike = Union[str, int]
 REMOVE_CHARS = " -./\\,"
 DIGIT_CLEANUP_TABLE = str.maketrans("", "", REMOVE_CHARS)
 
