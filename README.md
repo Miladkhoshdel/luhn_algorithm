@@ -21,7 +21,7 @@ lengths, or whether an identifier is real.
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.8+
 - No third-party packages
 
 ## Quick Start
