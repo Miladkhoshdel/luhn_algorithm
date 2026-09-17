@@ -1,4 +1,4 @@
-"""Utilities for validating and generating Luhn check digits."""
+"""Validate numbers and calculate or append check digits using the Luhn algorithm."""
 
 from __future__ import annotations
 
